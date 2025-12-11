@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVRIS | Vertical Farm Command Center</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🌱 SVRIS</div>
+        <div class="title">Vertical Farm Command Center</div>
+        <div class="menu-icon"><i class="fas fa-bars"></i></div>
+    </header>
+
+    <main class="dashboard-grid">
+        
+        <div class="card status-control" style="background-color: rgba(0, 0, 0, 0.2);">
+            
+            <h3><i class="fas fa-seedling"></i> Live Status & Control</h3>
+            
+            <div style="background-color: rgba(0, 0, 0, 0.4);">
+                
+                <div class="status-flex">
+                
+                    <div class="metric big-metric">
+                        <span id="current-temp">--.-</span> °C
+                        <i class="fas fa-cloud-sun icon-small"></i>
+                    </div>
+                
+                    <div class="metric" style="margin: 20px;">
+                        <i class="fas fa-tint icon-medium"></i>
+                        <span class="label">Humidity</span>
+                        <span id="current-humidity" class="value">--%</span>
+                    </div>
+                </div>
+                
+                <div class="status-detail" style="padding: 10px;">
+                    <p>Water Level Status: <span id="water-level" class="value">---</span></p>
+                    <p>Time Stamp: <span id="last-update" class="value">Loading...</span></p>
+                </div>
+
+                <div class="extra-metrics" style="padding: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <h4>Environment Details</h4>
+                    <p>Feels Like: <span id="heat-index" class="value">--.-</span> °C</p>
+                    <p>Rain Intensity: <span id="rain-percent" class="value">--%</span></p>
+                    <p>Water Raw ADC: <span id="raw-value" class="value">----</span></p>
+                </div>
+                
+                <div class="soil-quick-view" style="padding: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <h4>Soil Moisture (%)</h4>
+                    <div style="display: flex; justify-content: space-around;">
+                        <p>Bed 1: <span id="soil1-percent" class="value">--%</span></p>
+                        <p>Bed 2: <span id="soil2-percent" class="value">--%</span></p>
+                        <p>Bed 3: <span id="soil3-percent" class="value">--%</span></p>
+                    </div>
+                </div>
+                <div class="rain-status" style="margin-top:5vh; margin-bottom:5vh;">
+                    <p><i class="fas fa-cloud-showers-heavy"></i> Rain Status:</p>
+                    <span id="rain-status-display" class="tag rain-detected">---</span> 
+                </div>
+
+                <div class="pump-control">
+                    <h4>Water Pump Status</h4>
+                    <div class="control-row">
+                        <span id="pump-status" class="status-indicator">AUTO-MODE ACTIVE</span>
+                        <div style="flex-grow: 1;"></div>
+                        <label class="switch">
+                            <input type="checkbox" id="pump-switch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+            </div> <div class="ws-status-bar" style="text-align: center; padding: 10px 0;">
+                <span id="ws-status-msg" class="tag" style="background-color: var(--color-primary);">Live data stream: CONNECTING...</span>
+            </div>
+            
+            <div class="card weather-card-internal" style="margin-top: 20%;">
+                <h2><i class="fas fa-cloud-sun-rain"></i> Weather Forecast</h3>
+                <div class="weather-content">
+                    <div class="forecast-icon">
+                        <h1 style="font-size: 4rem; color: #4A90E2;"><i class="weather-icon"></i> </h1>
+                    </div>
+                    <div class="forecast-details">
+                        <p class="location"></p>
+                        <p class="description"></p>
+                        <p class="temp">-- °C</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card chart-card soil-chart-card">
+            <h3><i class="fas fa-chart-line"></i> Soil Moisture Trends (3 Beds)</h3>
+            <canvas id="soilMoistureChart"></canvas>
+        </div>
+
+        <div class="card chart-card env-chart-card">
+            <h3><i class="fas fa-chart-area"></i> Temperature & Humidity Trends</h3>
+            <canvas id="envChart"></canvas>
+        </div>
+
+        <div class="card data-management-card">
+            <h3><i class="fas fa-database"></i> Data Management</h3>
+            <div class="button-grid">
+                <input type="file" id="sd-csv-input" accept=".csv" style="display: none;">
+                <button id="upload-csv-btn" class="btn btn-primary"><i class="fas fa-upload"></i> Upload SD Card CSV</button>
+                <button id="append-db-btn" class="btn btn-success"><i class="fas fa-plus-circle"></i> Append Data to Database</button>
+                <button id="export-db-btn" class="btn btn-warning"><i class="fas fa-download"></i> Export FULL Database CSV</button>
+                <button id="download-sd-btn" class="btn btn-info"><i class="fas fa-file-download"></i> Download SD Card CSV (Hardware Required)</button>
+                <button id="delete-sd-btn" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete Data on SD</button>
+            </div>
+            <div class="status-message">
+                <p>Status: <span id="data-status-msg">Ready.</span></p>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

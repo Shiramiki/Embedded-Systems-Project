@@ -1,0 +1,171 @@
+:root {
+    /* Define Color Palette */
+    --color-primary: #00bcd4;
+    --color-secondary: blue;
+    --color-background-dark: #0a192f;
+    --color-card-bg: rgba(14, 28, 45, 0.7); 
+    --color-text-light: #e6e6e6;
+    --color-border: rgba(0, 188, 212, 0.3);
+    --color-danger: #ff5252;
+    --color-warning: #ffb300;
+    --color-info: #00e5ff;
+}
+
+/* ======================= BASE & TYPOGRAPHY ======================= */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+body {
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--color-text-light);
+    min-height: 100vh;
+}
+
+/* --- Header --- */
+header { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 15px 30px; 
+    background-color: rgba(10, 25, 47, 0.9); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+.logo { font-size: 1.8em; font-weight: bold; color: var(--color-primary); }
+.title { font-size: 1.4em; font-weight: 300; }
+
+h3 { 
+    color: var(--color-primary); 
+    margin-bottom: 15px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-bottom: 10px; 
+    font-size: 1.25em; 
+}
+
+/* ======================= GRID LAYOUT ======================= */
+.dashboard-grid {
+    display: grid;
+    /* Column setup: 1fr left, 2fr right */
+    grid-template-columns: 1fr 2fr; 
+    /* Row setup: Chart 1, Chart 2, Data Management */
+    grid-template-rows: auto auto 1fr; 
+    gap: 25px;
+    padding: 25px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* --- Card Styling (Glass Effect) --- */
+.card {
+    background-color: var(--color-card-bg); 
+    border: 1px solid var(--color-border);
+    border-radius: 12px; 
+    padding: 20px; 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.3s ease;
+}
+
+/* ======================= STATUS & CONTROL ======================= */
+.status-control { 
+    /* Spans the top two rows on the left column */
+    grid-row: 1 / 3; 
+} 
+
+.status-flex {
+    display: flex; justify-content: space-between; margin-bottom: 20px;
+}
+
+.big-metric { 
+    font-size: 3em; font-weight: 600; color: var(--color-info); 
+    display: flex; align-items: center; 
+}
+
+.metric .value { font-size: 1.5em; font-weight: bold; color: var(--color-secondary); }
+
+/* Pump Control */
+.control-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+
+/* --- New Status Indicator Button Style --- */
+.status-indicator-btn {
+    /* Base button sizing */
+    padding: 10px 15px; 
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: default;
+    text-align: center;
+    min-width: 150px; 
+    transition: background-color 0.3s ease;
+}
+
+/* Style for the Active/Auto Mode button when AUTO is on (Green) */
+.auto-active {
+    background-color: var(--color-secondary); /* Green */
+    color: var(--color-background-dark);
+}
+
+/* Style for the Active/Auto Mode button when MANUAL is on (Red/Danger) */
+.manual-active {
+    background-color: var(--color-danger); /* Red */
+    color: var(--color-text-light);
+}
+
+/* Ensure the manual control button is styled similarly to the new indicator button */
+.btn-control {
+    background-color: var(--color-text-light);
+    color: var(--color-background-dark);
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+.btn-control:hover {
+    background-color: #ccc;
+}
+
+/* Nested Weather Card */
+.weather-card-internal { 
+    margin-top: 20px; padding: 15px; 
+    border: 1px dashed var(--color-border); border-radius: 8px; 
+    background-color: rgba(0, 0, 0, 0.2); 
+} 
+
+/* ======================= CHART STYLES ======================= */
+
+/* --- Static Graph Sizing --- */
+.chart-card canvas {
+    /* Enforce a fixed height for a static look */
+    height: 300px !important; 
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.); 
+    border-radius: 8px;
+}
+
+/* ======================= DATA MANAGEMENT ======================= */
+.data-management-card { 
+    /* Spans both columns at the bottom */
+    grid-column: 1 / 3; 
+} 
+
+.button-grid { 
+    display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; 
+}
+.btn { 
+    padding: 10px 15px; border: none; border-radius: 6px; 
+    cursor: pointer; font-weight: bold; transition: background-color 0.3s ease; 
+    white-space: nowrap; 
+}
+
+/* ======================= MEDIA QUERIES (RESPONSIVENESS) ======================= */
+@media (max-width: 1000px) {
+    .dashboard-grid {
+        /* Collapse to a single column layout */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .data-management-card, .status-control, .soil-chart-card, .env-chart-card {
+        grid-column: 1 / 2;
+        width: 100%; 
+    }
+    
+    .status-control { grid-row: auto; }
+}

@@ -1,0 +1,2 @@
+id,timestamp,temperature,humidity,soil_moisture_bed1,soil_moisture_bed2,soil_moisture_bed3,rain_status,water_level,pump_status,source
+1,Thu Dec 11 2025 01:22:15 GMT+0300 (East Africa Time),"24.70","62.00","18.50","21.40","13.80",1,"HIGH",0,"SD Card"
